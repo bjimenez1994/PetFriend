@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using PetFriend.Models;
+using SQLite;
 
 
 using Xamarin.Forms;
@@ -38,6 +39,25 @@ namespace PetFriend.Views
 
         async void Done(object ender, EventArgs e)
         {
+            PetProfile petprofile = new PetProfile()
+            {
+                Name = name_entry.Text,
+                Type = type_picker.SelectedItem.ToString(),
+                Gender = gender_picker.SelectedItem.ToString(),
+                Age = age_picker.SelectedItem.ToString(),
+                RFID = rfid_entry.Text
+            };
+
+            SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
+            conn.CreateTable<PetProfile>();
+            int rows = conn.Insert(petprofile);
+            conn.Close();
+
+            if (rows > 0)
+                await DisplayAlert("Success", "You have added a pet", "Ok");
+            else
+                await DisplayAlert("Failure", "Your pet was not added", "OK");
+
             await Navigation.PopToRootAsync();
         }
 

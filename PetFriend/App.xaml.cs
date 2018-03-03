@@ -2,15 +2,25 @@
 using PetFriend.Views;
 using System;
 
+
 namespace PetFriend
 {
     public partial class App : Application
     {
+        public static string DatabaseLocation = string.Empty;
         public App()
         {
             InitializeComponent();
 
             MainPage = new NavigationPage(new MainMenuPage());
+        }
+
+        public App(string databaseLocation)
+        {
+            InitializeComponent();
+
+            MainPage = new NavigationPage(new MainMenuPage());
+            DatabaseLocation = databaseLocation;
         }
 
         protected override void OnStart()

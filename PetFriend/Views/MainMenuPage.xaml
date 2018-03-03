@@ -6,8 +6,15 @@
     <ContentPage Title="Reminders" Icon="reminder.png">
         <ContentPage.Content>
             <StackLayout Margin="20,20,20,20">
-                <Label Text="Reminders" FontAttributes="Bold" FontSize="25"/>
+                <Grid>
+                    <Label Text="Reminders" FontAttributes="Bold" FontSize="25"/>
+                    <Button Image="add.png" HorizontalOptions="End" Clicked="AddReminder"/>
+                </Grid>
+                <Label Text="You have no reminders. :(" HorizontalTextAlignment="Center" Margin="20,20" x:Name="reminder_label" />
+                <ListView x:Name="Reminders_List" ItemSelected="PetSelected">
 
+                </ListView>
+                    
             </StackLayout>
         </ContentPage.Content>
     </ContentPage>
@@ -15,7 +22,7 @@
     <!-- tab 2 -->
     <ContentPage Title="Health" Icon="health.png">
         <ContentPage.Content>
-            <StackLayout>
+            <StackLayout Margin="20,20,20,20">
                 <Label Text="Health" FontAttributes="Bold" FontSize="25"/>
             </StackLayout>
         </ContentPage.Content>
@@ -26,10 +33,18 @@
 
     <ContentPage Title="Profile" Icon="pets.png">
         <ContentPage.Content>
-            <StackLayout>
-                <Label Text="Profile" FontAttributes="Bold" FontSize="25"/>
-                <Button Text="Add Pet" BackgroundColor="#38ada9" 
-                        TextColor="White" Clicked="AddPet"/>
+            <StackLayout Margin="20,20,20,20">
+                <Grid>
+                    <Label Text="Profile" FontAttributes="Bold" FontSize="25"/>
+                    <Button Image="add.png" Clicked="AddPet" HorizontalOptions="End"/>
+                </Grid>
+                <Label Text="You have not added a pet. :(" Margin="20,20" HorizontalTextAlignment="Center" x:Name="pet_label" />
+
+                
+                <ListView x:Name="Pet_List">
+                    
+                </ListView>
+                
             </StackLayout>
         </ContentPage.Content>
     </ContentPage>
@@ -39,7 +54,7 @@
 
     <ContentPage Title="More" Icon="more.png">
         <ContentPage.Content>
-            <StackLayout>
+            <StackLayout Margin="20,20,20,20">
                 <Label Text="More" FontAttributes="Bold" FontSize="25"/>
             </StackLayout>
         </ContentPage.Content>
