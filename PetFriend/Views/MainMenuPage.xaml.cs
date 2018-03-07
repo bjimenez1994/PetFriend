@@ -50,8 +50,23 @@ namespace PetFriend.Views
 
         }
 
-        async void PetSelected(object sender, SelectedItemChangedEventArgs e)
+        async void PetSelection(object sender, SelectedItemChangedEventArgs e)
         {
+            if (e.SelectedItem == null)
+            {
+                return; //ItemSelected is called on deselection, which results in SelectedItem being set to null
+            }
+
+            string temp = e.SelectedItem.ToString();
+            LocalData localdata = new LocalData()
+            {
+                tempname = temp 
+            };
+            SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
+            conn.CreateTable<LocalData>();
+            conn.Insert(localdata);
+            conn.Close();
+
             await Navigation.PushAsync(new PetViewPage());
         }
 

@@ -11,7 +11,7 @@
                     <Button Image="add.png" HorizontalOptions="End" Clicked="AddReminder"/>
                 </Grid>
                 <Label Text="You have no reminders. :(" HorizontalTextAlignment="Center" Margin="20,20" x:Name="reminder_label" />
-                <ListView x:Name="Reminders_List" ItemSelected="PetSelected">
+                <ListView x:Name="Reminders_List">
 
                 </ListView>
                     
@@ -41,7 +41,7 @@
                 <Label Text="You have not added a pet. :(" Margin="20,20" HorizontalTextAlignment="Center" x:Name="pet_label" />
 
                 
-                <ListView x:Name="Pet_List">
+                <ListView x:Name="Pet_List" ItemSelected="PetSelection">
                     
                 </ListView>
                 

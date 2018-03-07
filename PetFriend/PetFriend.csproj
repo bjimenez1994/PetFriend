@@ -69,6 +69,7 @@
     <Compile Include="Views\PetViewPage.xaml.cs">
       <DependentUpon>PetViewPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\LocalData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
