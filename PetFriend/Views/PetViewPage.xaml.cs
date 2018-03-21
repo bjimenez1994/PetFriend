@@ -22,8 +22,8 @@ namespace PetFriend.Views
         void Init()
         {
             /* filling out the pickers */
-            string age;
-
+            //string age;
+            /*
             for (int i = 0; i < 100; i++)
             {
                 age = i.ToString();
@@ -38,29 +38,34 @@ namespace PetFriend.Views
 
             gender_picker.Items.Add("Male");
             gender_picker.Items.Add("Female");
+            */
             /**/
 
             /* getting data from selected pet */
+
             SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
             conn.CreateTable<LocalData>();
             var check = from s in conn.Table<LocalData>()
                         select s;
             temp = check.Last().tempname;
             conn.DropTable<LocalData>();
-            conn.CreateTable<PetProfile>();
+            conn.CreateTable<Reminders>();
 
             var output = conn.Query<PetProfile>("select * from PetProfile where Name=?", temp);
 
             name_entry.Text = output.Last().Name;
-            gender_picker.SelectedItem = output.Last().Gender;
-            type_picker.SelectedItem = output.Last().Type;
-            age_picker.SelectedItem = output.Last().Age;
+            //gender_picker.SelectedItem = output.Last().Gender;
+            //type_picker.SelectedItem = output.Last().Type;
+            //age_picker.SelectedItem = output.Last().Age;
+            gender_picker.Text = output.Last().Gender;
+            type_picker.Text = output.Last().Type;
+            age_picker.Text = output.Last().Age;
             rfid_entry.Text = output.Last().RFID;
 
             conn.Close();
 
         }
-
+        /*
         async void DoneEdit(object ender, EventArgs e)
         {
             SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
@@ -81,7 +86,7 @@ namespace PetFriend.Views
 
             await Navigation.PopToRootAsync();
         }
-
+*/
 
     }
 }

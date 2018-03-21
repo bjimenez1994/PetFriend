@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PetFriend.Views.AddHealthPage">
+	<ContentPage.Content>
+
+        <ScrollView>
+        <StackLayout Margin="20,20,20,20">
+            <Label Text="Add Health Record" HorizontalTextAlignment="Center" Margin="0,0,0,20"
+                    BackgroundColor="#38ada9" FontSize="30" FontAttributes="Bold"/>
+
+            
+            <Label Text="Vet Visited"/>
+            <Entry x:Name="vetVisit_entry" HeightRequest="35" Margin="0,0,0,10"/>
+
+            <Label Text="Type of visit"/>
+            <Entry x:Name="type_entry" Margin="0,0,200,10"/>
+
+            <Label Text="Date"/>
+            <Entry x:Name="date_entry" Margin="0,0,200,10"/>
+
+            <Label Text="Weight"/>
+            <Entry x:Name="weight_entry" Margin="0,0,200,10"/>
+
+            <Label Text="Vaccinations"/>
+            <Entry x:Name="vaccinations_entry" HeightRequest="35" Margin="0,0,200,10"/>
+
+            <Label Text="Vet comments"/>
+            <Entry x:Name="comments_entry" HeightRequest="35" Margin="0,0,200,10"/>
+
+            <Button Text="Important documents"  TextColor="#38ada9" BackgroundColor="#f1f2f6" Margin="20,20"/>
+
+            <Button Clicked="Done" Text="Done" BackgroundColor="#38ada9" TextColor="White" Margin="20,0"/>
+
+        </StackLayout>
+        </ScrollView>
+        
+	</ContentPage.Content>
+</ContentPage>

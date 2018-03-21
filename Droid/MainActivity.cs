@@ -27,7 +27,7 @@ namespace PetFriend.Droid
             string folderPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             string fullPath = Path.Combine(folderPath, dbName);
 
-            LoadApplication(new App());
+            LoadApplication(new App(fullPath));
         }
     }
 }

@@ -46,6 +46,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\ReminderViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\HealthViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\AddHealthPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -70,6 +82,16 @@
       <DependentUpon>PetViewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\LocalData.cs" />
+    <Compile Include="Views\ReminderViewPage.xaml.cs">
+      <DependentUpon>ReminderViewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HealthData.cs" />
+    <Compile Include="Views\HealthViewPage.xaml.cs">
+      <DependentUpon>HealthViewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddHealthPage.xaml.cs">
+      <DependentUpon>AddHealthPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

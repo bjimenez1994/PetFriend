@@ -1,5 +1,32 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PetFriend.Views.AddReminderPage">
 	<ContentPage.Content>
+
+        <ScrollView>
+            <StackLayout Margin="20,20,20,20">
+            <Label Text="Add Reminder" HorizontalTextAlignment="Center" Margin="0,0,0,20"
+                    BackgroundColor="#38ada9" FontSize="30" FontAttributes="Bold"/>
+
+            
+            <Entry x:Name="reminder_entry" HeightRequest="35" Margin="0,0,150,10" Placeholder="Reminder"/>
+
+            <Entry x:Name="description_entry" HeightRequest="70" Margin="0,0,0,10" Placeholder="Description"/>
+
+                
+                    <Picker x:Name="priority_picker" Title="Priority" Margin="0,0,200,10" WidthRequest="90"/>
+
+                <StackLayout BackgroundColor="#38ada9" Padding="1">    
+                <StackLayout Padding="2"  Orientation="Horizontal" BackgroundColor="White">    
+                    <Label Text="Date" BackgroundColor="White" HeightRequest="30" VerticalTextAlignment="Center" Margin="4,0,4,0"/>
+                    <DatePicker WidthRequest="90" Margin="85,0,0,0"/>
+                    <TimePicker />
+                </StackLayout>
+            </StackLayout>
+                    
+            <Button Clicked="Done" Text="Save" BackgroundColor="#38ada9" TextColor="White" Margin="20,40,20,0"/>
+
+            </StackLayout>
+      </ScrollView>
+            
 	</ContentPage.Content>
 </ContentPage>

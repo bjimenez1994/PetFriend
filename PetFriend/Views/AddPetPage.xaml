@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PetFriend.Views.AddPetPage">
 	<ContentPage.Content>
 
+        <ScrollView>
         <StackLayout Margin="20,20,20,20">
             <Label Text="Add Pet" HorizontalTextAlignment="Center" Margin="0,0,0,20"
                     BackgroundColor="#38ada9" FontSize="30" FontAttributes="Bold"/>
@@ -26,8 +27,8 @@
 
             <Button Clicked="Done" Text="Done" BackgroundColor="#38ada9" TextColor="White" Margin="20,0"/>
 
-            
         </StackLayout>
+        </ScrollView>
         
 	</ContentPage.Content>
 </ContentPage>

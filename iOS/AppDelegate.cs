@@ -15,6 +15,7 @@ namespace PetFriend.iOS
         {
             global::Xamarin.Forms.Forms.Init();
 
+
             string dbName = "PetFriend_db.sqlite";
             string folderPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "..", "Library");
             string fullPath = Path.Combine(folderPath, dbName);

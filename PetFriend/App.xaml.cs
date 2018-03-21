@@ -12,14 +12,20 @@ namespace PetFriend
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new MainMenuPage());
+            MainPage = new NavigationPage(new MainMenuPage())
+            {
+                BarBackgroundColor = Color.FromHex("#38ada9")
+            };
         }
 
         public App(string databaseLocation)
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new MainMenuPage());
+            MainPage = new NavigationPage(new MainMenuPage())
+            {
+                BarBackgroundColor = Color.FromHex("#38ada9")
+            };
             DatabaseLocation = databaseLocation;
         }
 
