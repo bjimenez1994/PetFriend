@@ -8,22 +8,22 @@
                    
 
             <Label Text="Vet Visited" FontAttributes="Bold" FontSize="20"/>
-            <Entry x:Name="vetVisit_entry" HeightRequest="35" Margin="0,0,0,10"/>
+            <Label x:Name="vetVisit_entry" HeightRequest="35" Margin="0,0,0,10"/>
 
             <Label Text="Type of visit" FontAttributes="Bold" FontSize="20"/>
-            <Entry x:Name="type_entry" Margin="0,0,200,10"/>
+            <Label x:Name="type_entry" Margin="0,0,200,10"/>
 
             <Label Text="Date" FontAttributes="Bold" FontSize="20"/>
-            <Entry x:Name="date_entry" Margin="0,0,200,10"/>
+            <Label x:Name="date_entry" Margin="0,0,200,10"/>
 
             <Label Text="Weight" FontAttributes="Bold" FontSize="20"/>
-            <Entry x:Name="weight_entry" Margin="0,0,200,10"/>
+            <Label x:Name="weight_entry" Margin="0,0,200,10"/>
 
             <Label Text="Vaccinations" FontAttributes="Bold" FontSize="20"/>
-            <Entry x:Name="vaccinations_entry" HeightRequest="35" Margin="0,0,200,10"/>
+            <Label x:Name="vaccinations_entry" HeightRequest="35" Margin="0,0,200,10"/>
 
             <Label Text="Vet comments" FontAttributes="Bold" FontSize="20"/>
-            <Entry x:Name="comments_entry" HeightRequest="35" Margin="0,0,200,10"/>
+            <Label x:Name="comments_entry" HeightRequest="35" Margin="0,0,200,10"/>
 
             
         </StackLayout>

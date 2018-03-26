@@ -13,6 +13,7 @@ namespace PetFriend.Views
         public HealthViewPage()
         {
             InitializeComponent();
+            Init();
         }
 
         string temp;
@@ -36,8 +37,8 @@ namespace PetFriend.Views
             vetVisit_entry.Text = output.Last().vetVisited;
             type_entry.Text = output.Last().TypeVisit;
             date_entry.Text = output.Last().Date;
-            vaccinations_entry.Text = output.Last().Vaccinations;
             weight_entry.Text = output.Last().Weight;
+            vaccinations_entry.Text = output.Last().Vaccinations;
             comments_entry.Text = output.Last().vetComments;
 
             conn.Close();
