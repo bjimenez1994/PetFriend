@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using PetFriend.Models;
 using System.Linq;
+using System.IO;
 
 
 using Xamarin.Forms;
+using System.Text;
 
 namespace PetFriend.Views
 {
@@ -19,10 +21,45 @@ namespace PetFriend.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            
+
+            string curDir = null;
+
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                curDir = "";//ADD 
+            }
+            else
+            {
+                curDir = "/storage/sdcard0/Android/data/petFriend/";
+                
+            }
+
+            if (curDir == null) return;// if device isn't iOS or android, should never happen
+
+            if (System.IO.File.Exists(curDir + "PetFriendInfo.dat"))
+            {
+                //use this area if the files need to be accessed when the app starts up
+            }
+            else//first time starting or files were deleted/removed/corrupted
+            {//create the directory and base files used to store data
+                Directory.CreateDirectory(curDir);
+
+                FileStream x = File.Create(curDir + "PetFriendInfo.dat");//currently only used to check if the app has been opened before
+                x.Close();
+                x = File.Create(curDir + "Reminders.dat");  //stores a list of reminder names
+                x.Close();
+                x = File.Create(curDir + "Records.dat");    //stores a list of health record names
+                x.Close();
+                x = File.Create(curDir + "Profiles.dat");   //stores a list of pet names
+                x.Close();
+
+            }
+
+            string[] Reminders = File.ReadAllLines(curDir + "Reminders.dat");
+            Reminders_List.ItemsSource = Reminders;
             
 
-            if(Pet_List.ItemsSource == null)
+            if (Pet_List.ItemsSource == null)
             {
                 Pet_List.IsVisible = false;
                 pet_label.IsVisible = true;

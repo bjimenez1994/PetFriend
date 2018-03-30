@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using PetFriend.Models;
+using System.IO;
 
 
 using Xamarin.Forms;
+using System.Text;
 
 namespace PetFriend.Views
 {
@@ -17,6 +19,8 @@ namespace PetFriend.Views
 
         void Init()
         {
+            
+
             string age;
 
             for (int i = 0; i < 100; i++)
