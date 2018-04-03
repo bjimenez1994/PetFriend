@@ -55,9 +55,12 @@ namespace PetFriend.Views
 
             }
 
-            string[] Reminders = File.ReadAllLines(curDir + "Reminders.dat");
-            Reminders_List.ItemsSource = Reminders;
-            
+            string[] Reminders = File.ReadAllLines(curDir + "Reminders.dat");//Reads data from Reminders list file
+            Reminders_List.ItemsSource = Reminders; //displays the data read in the listview
+            string[] Profiles = File.ReadAllLines(curDir + "Profiles.dat");
+            Pet_List.ItemsSource = Profiles;
+            string[] Records = File.ReadAllLines(curDir + "Records.dat");
+            Health_List.ItemsSource = Records;
 
             if (Pet_List.ItemsSource == null)
             {
@@ -106,7 +109,7 @@ namespace PetFriend.Views
                 tempname = temp 
             };
 
-            await Navigation.PushAsync(new PetViewPage());
+            await Navigation.PushAsync(new PetViewPage(e.SelectedItem.ToString()));
         }
 
         async void ReminderSelection(object sender, SelectedItemChangedEventArgs e)
@@ -121,7 +124,7 @@ namespace PetFriend.Views
                 tempname = temp
             };
 
-            await Navigation.PushAsync(new ReminderViewPage());
+            await Navigation.PushAsync(new ReminderViewPage(e.SelectedItem.ToString()));
         }
 
         async void HealthSelection(object sender, SelectedItemChangedEventArgs e)
@@ -136,7 +139,7 @@ namespace PetFriend.Views
                 tempname = temp
             };
 
-            await Navigation.PushAsync(new HealthViewPage());
+            await Navigation.PushAsync(new HealthViewPage(e.SelectedItem.ToString()));
         }
 
         async void AddPet(object ender, EventArgs e)

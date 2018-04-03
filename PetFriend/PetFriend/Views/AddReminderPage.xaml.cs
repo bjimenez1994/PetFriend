@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using PetFriend.Models;
+using System.IO;
 
 using Xamarin.Forms;
 
@@ -31,8 +32,12 @@ namespace PetFriend.Views
             //{
               string Title = reminder_entry.Text;
               string Description = description_entry.Text;
-              string Priority = priority_picker.SelectedItem.ToString();
+              string Priority = priority_picker.SelectedItem.ToString();//TODO FIGURE OUT WHAT PICKER DEFAULTS TO OR SET A DEFAULT VALUE
             //};
+
+            if (Title == null) Title = "noTitle"; //TODO MAKE SURE YOU HAVE A TITLE
+            if (Description == null) Description = "";
+            if (Priority == null) Priority = "";
 
             string curDir = null;
 
@@ -48,18 +53,18 @@ namespace PetFriend.Views
 
             if (curDir == null) return;// if device isn't iOS or android, should never happen
 
-
             //TODO: ADD CHECK FOR DUPLICATE FILE NAMES==========================================================================================================================================
             System.IO.StreamWriter appender = System.IO.File.AppendText(curDir + "Reminders.dat");//writes the new reminder to the main list of reminders
-            appender.Write(Title);
+            appender.Write(Title + "\n");
             appender.Flush();
             appender.Close();
 
-            System.IO.FileStream newReminder = System.IO.File.Create(curDir + Title + ".dat");
-            Byte[] toWrite = Encoding.ASCII.GetBytes(Title + "\n" + Description + "\n" + Priority + "\n");
-            newReminder.Write(toWrite, 0, 0);
+            System.IO.FileStream temp = System.IO.File.Create(curDir + Title + ".dat");
+            temp.Close();
+            StreamWriter newReminder = File.AppendText(curDir + Title + ".dat");
+            newReminder.Write(Title + "\n" + Description + "\n" + Priority + "\n");
+            newReminder.Flush();
             newReminder.Close();
-
 
             await Navigation.PopToRootAsync();
         }

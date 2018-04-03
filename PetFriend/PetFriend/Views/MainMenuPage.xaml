@@ -12,7 +12,6 @@
                 </Grid>
                 <Label Text="You have no reminders. :(" HorizontalTextAlignment="Center" Margin="20,20" x:Name="reminder_label" />
                 <ListView x:Name="Reminders_List" ItemSelected="ReminderSelection">
-
                 </ListView>
                     
             </StackLayout>
@@ -29,7 +28,6 @@
                 </Grid>
                 <Label Text="You have no health records. :(" HorizontalTextAlignment="Center" Margin="20,20" x:Name="health_label" />
                 <ListView x:Name="Health_List" ItemSelected="HealthSelection">
-
                 </ListView>
             </StackLayout>
         </ContentPage.Content>
@@ -38,7 +36,7 @@
 
         <!-- tab 3 -->
 
-    <ContentPage Title="Profile" Icon="reminder.png">
+    <ContentPage Title="Profile" Icon="pets.png">
         <ContentPage.Content>
             <StackLayout Margin="20,20,20,20">
                 <Grid>
@@ -46,10 +44,7 @@
                     <Button Image="add.png" Clicked="AddPet" HorizontalOptions="End"/>
                 </Grid>
                 <Label Text="You have not added a pet. :(" Margin="20,20" HorizontalTextAlignment="Center" x:Name="pet_label" />
-
-                
                 <ListView x:Name="Pet_List" ItemSelected="PetSelection">
-                    
                 </ListView>
                 
             </StackLayout>

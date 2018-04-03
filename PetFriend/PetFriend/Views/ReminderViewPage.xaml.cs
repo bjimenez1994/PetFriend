@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using PetFriend.Models;
+using System.IO;
 
 
 using Xamarin.Forms;
@@ -10,38 +11,41 @@ namespace PetFriend.Views
 {
     public partial class ReminderViewPage : ContentPage
     {
+        private string name;
+
         public ReminderViewPage()
         {
             InitializeComponent();
             Init();
         }
 
-        string temp;
+        public ReminderViewPage(string passedName)
+        {
+            name = passedName;
+            InitializeComponent();
+            Init();
+        }
 
         void Init()
         {
-            /* filling out the pickers */
-            //string age;
-            /*
-            for (int i = 0; i < 100; i++)
+            string curDir = null;
+
+            if (Device.RuntimePlatform == Device.iOS)
             {
-                age = i.ToString();
-                age_picker.Items.Add(age);
+                curDir = "";//ADD 
+            }
+            else
+            {
+                curDir = "/storage/sdcard0/Android/data/petFriend/";
             }
 
-            type_picker.Items.Add("Dog");
-            type_picker.Items.Add("Cat");
-            type_picker.Items.Add("Horse");
-            type_picker.Items.Add("Bird");
-            type_picker.Items.Add("Reptile");
+            if (curDir == null) return;// if device isn't iOS or android, should never happen
 
-            gender_picker.Items.Add("Male");
-            gender_picker.Items.Add("Female");
-            */
-            /**/
+            string[] data = File.ReadAllLines(curDir + name + ".dat");
+            name_entry.Text = data[0];
+            description_entry.Text = data[1];
+            priority_picker.Text = data[2];
 
-            /* getting data from selected pet */
-            
 
         }
 
