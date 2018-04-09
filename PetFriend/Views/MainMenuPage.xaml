@@ -7,12 +7,26 @@
         <ContentPage.Content>
             <StackLayout Margin="20,20,20,20">
                 <Grid>
-                    <Label Text="Reminders" FontAttributes="Bold" FontSize="25"/>
+                    <Label Text="Reminders" FontAttributes="Bold" FontSize="30"/>
                     <Button Image="add.png" HorizontalOptions="End" Clicked="AddReminder"/>
                 </Grid>
                 <Label Text="You have no reminders. :(" HorizontalTextAlignment="Center" Margin="20,20" x:Name="reminder_label" />
-                <ListView x:Name="Reminders_List" ItemSelected="ReminderSelection">
+                <ListView x:Name="Reminders_List" ItemTapped="ReminderSelection" HasUnevenRows="true" RowHeight="60" SeparatorColor="#38ada9"   >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                      <ViewCell>
+                         <ViewCell.ContextActions>
+                            <MenuItem  CommandParameter="{Binding .}" 
+                                    Text="Delete" IsDestructive="True" />
+                         </ViewCell.ContextActions>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text = "{Binding Title}" Margin="10,10,10,0" FontAttributes="Bold" FontSize="24"/>
+                                <Image Source="reminder.png" HorizontalOptions="End" Margin="0,0,0,10"/>
 
+                            </StackLayout>
+                         </ViewCell>
+                      </DataTemplate>
+                   </ListView.ItemTemplate>
                 </ListView>
                     
             </StackLayout>
@@ -24,12 +38,26 @@
         <ContentPage.Content>
             <StackLayout Margin="20,20,20,20">
                 <Grid>
-                    <Label Text="Health" FontAttributes="Bold" FontSize="25"/>
+                    <Label Text="Health" FontAttributes="Bold" FontSize="30"/>
                     <Button Image="add.png" HorizontalOptions="End" Clicked="AddHealthRecord"/>
                 </Grid>
                 <Label Text="You have no health records. :(" HorizontalTextAlignment="Center" Margin="20,20" x:Name="health_label" />
-                <ListView x:Name="Health_List" ItemSelected="HealthSelection">
+                <ListView x:Name="Health_List" ItemTapped="HealthSelection" HasUnevenRows="true" RowHeight="60" SeparatorColor="#38ada9">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem  CommandParameter="{Binding .}" 
+                                    Text="Delete" IsDestructive="True" />
+                            </ViewCell.ContextActions>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text = "{Binding Date}" Margin="10,10,10,0" FontAttributes="Bold" FontSize="24"/>
+                                <Image Source="health.png" HorizontalOptions="End" Margin="0,0,0,10"/>
 
+                            </StackLayout>
+                         </ViewCell>
+                      </DataTemplate>
+                   </ListView.ItemTemplate>
                 </ListView>
             </StackLayout>
         </ContentPage.Content>
@@ -42,14 +70,28 @@
         <ContentPage.Content>
             <StackLayout Margin="20,20,20,20">
                 <Grid>
-                    <Label Text="Profile" FontAttributes="Bold" FontSize="25"/>
+                    <Label Text="Profile" FontAttributes="Bold" FontSize="30"/>
                     <Button Image="add.png" Clicked="AddPet" HorizontalOptions="End"/>
                 </Grid>
                 <Label Text="You have not added a pet. :(" Margin="20,20" HorizontalTextAlignment="Center" x:Name="pet_label" />
 
                 
-                <ListView x:Name="Pet_List" ItemSelected="PetSelection">
-                    
+                <ListView x:Name="Pet_List" ItemTapped="PetSelection" HasUnevenRows="true" RowHeight="60" SeparatorColor="#38ada9">
+                 <ListView.ItemTemplate>
+                    <DataTemplate>
+                      <ViewCell>
+                         <ViewCell.ContextActions>
+                            <MenuItem  CommandParameter="{Binding .}" 
+                                    Text="Delete" IsDestructive="True" />
+                         </ViewCell.ContextActions>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text = "{Binding Name}" Margin="10,10,10,0" FontAttributes="Bold" FontSize="24"/>
+                                <Image Source="pets.png" HorizontalOptions="End" Margin="0,0,0,10"/>
+
+                            </StackLayout>
+                         </ViewCell>
+                      </DataTemplate>
+                   </ListView.ItemTemplate>
                 </ListView>
                 
             </StackLayout>
@@ -62,7 +104,35 @@
     <ContentPage Title="More" Icon="more.png">
         <ContentPage.Content>
             <StackLayout Margin="20,20,20,20">
-                <Label Text="More" FontAttributes="Bold" FontSize="25"/>
+                <Label Text="More" FontAttributes="Bold" FontSize="30"/>
+                <Button Text="Date" BackgroundColor="Red" Clicked="DateClicked"/>
+                <Label Text="Date" x:Name="dateLabel"/>
+                <DatePicker x:Name="datePicker" WidthRequest="100" Margin="75,0,0,0"/>
+                    <TimePicker x:Name="timePicker" />
+
+
+
+            <ScrollView Orientation="Horizontal" HeightRequest="30" HorizontalOptions="Fill">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="hello"></Label>
+                        <Label Text="test"></Label>
+                        <Label Text="hello"></Label>
+                        <Label Text="test"></Label>
+                        <Label Text="hello"></Label>
+                        <Label Text="test"></Label>
+                        <Label Text="hello"></Label>
+                        <Label Text="test"></Label>
+                        <Label Text="hello"></Label>
+                        <Label Text="test"></Label>
+                        <Label Text="hello"></Label>
+                        <Label Text="test"></Label>
+                        <Label Text="hello"></Label>
+                        <Label Text="test"></Label>
+                    </StackLayout>
+            </ScrollView>
+
+
+                
             </StackLayout>
         </ContentPage.Content>
     </ContentPage>

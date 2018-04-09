@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using PetFriend.Models;
 using SQLite;
-
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 
 using Xamarin.Forms;
 
@@ -37,7 +38,7 @@ namespace PetFriend.Views
 
         }
 
-        async void Done(object ender, EventArgs e)
+        async void Done(object sender, EventArgs e)
         {
             PetProfile petprofile = new PetProfile()
             {
@@ -60,6 +61,39 @@ namespace PetFriend.Views
 
             await Navigation.PopToRootAsync();
         }
+
+        async void AddPicture(object sender, EventArgs e)
+        {
+            await CrossMedia.Current.Initialize();
+
+            if (!CrossMedia.Current.IsPickPhotoSupported)
+            {
+                await DisplayAlert("Error", "This is not supported on your device", "Ok");
+                return;
+            }
+            var mediaOptions = new PickMediaOptions()
+            {
+                PhotoSize = PhotoSize.Medium
+            };
+
+            var selectedImageFile = await CrossMedia.Current.PickPhotoAsync(mediaOptions);
+
+            if (selectedImageFile == null)
+            {
+                //await DisplayAlert("Error", "There was an error when trying to get your image", "Ok");
+                return;
+            }
+
+
+
+            PetPic.Source = ImageSource.FromStream(() =>
+            {
+                var stream = selectedImageFile.GetStream();
+                //selectedImageFile.Dispose();
+                return stream;
+            });
+        }
+
 
     }
 }

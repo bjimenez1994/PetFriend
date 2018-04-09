@@ -22,6 +22,7 @@ namespace PetFriend.Views
             priority_picker.Items.Add("Normal");
             priority_picker.Items.Add("Important");
             priority_picker.Items.Add("Critical");
+            //System.Diagnostics.Debug.WriteLine("TEST: " + datePicker.ToString());
 
         }
 
@@ -31,7 +32,8 @@ namespace PetFriend.Views
             {
                 Title = reminder_entry.Text,
                 Description = description_entry.Text,
-                Priority = priority_picker.SelectedItem.ToString()
+                Priority = priority_picker.SelectedItem.ToString(),
+                Date = datePicker.Date + timePicker.Time
             };
 
             SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);

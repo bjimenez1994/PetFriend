@@ -18,8 +18,8 @@
                 <StackLayout BackgroundColor="#38ada9" Padding="1">    
                 <StackLayout Padding="2"  Orientation="Horizontal" BackgroundColor="White">    
                     <Label Text="Date" BackgroundColor="White" HeightRequest="30" VerticalTextAlignment="Center" Margin="4,0,4,0"/>
-                    <DatePicker WidthRequest="90" Margin="85,0,0,0"/>
-                    <TimePicker />
+                    <DatePicker x:Name="datePicker" WidthRequest="100" Margin="75,0,0,0"/>
+                    <TimePicker x:Name="timePicker" />
                 </StackLayout>
             </StackLayout>
                     
