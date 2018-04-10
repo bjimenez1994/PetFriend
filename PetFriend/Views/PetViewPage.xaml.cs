@@ -4,6 +4,7 @@ using SQLite;
 using System.Linq;
 using PetFriend.Models;
 using SQLite.Extensions;
+using System.IO;
 
 using Xamarin.Forms;
 
@@ -61,6 +62,8 @@ namespace PetFriend.Views
             type_picker.Text = output.Last().Type;
             age_picker.Text = output.Last().Age;
             rfid_entry.Text = output.Last().RFID;
+            image_entry.Source = ImageSource.FromStream(() => new MemoryStream(output.Last().Image));
+
 
             conn.Close();
 

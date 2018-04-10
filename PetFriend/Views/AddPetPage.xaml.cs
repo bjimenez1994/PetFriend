@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using PetFriend.Models;
 using SQLite;
 using Plugin.Media;
@@ -11,6 +12,7 @@ namespace PetFriend.Views
 {
     public partial class AddPetPage : ContentPage
     {
+        byte[] image;
         public AddPetPage()
         {
             InitializeComponent();
@@ -40,13 +42,15 @@ namespace PetFriend.Views
 
         async void Done(object sender, EventArgs e)
         {
+
             PetProfile petprofile = new PetProfile()
             {
                 Name = name_entry.Text,
                 Type = type_picker.SelectedItem.ToString(),
                 Gender = gender_picker.SelectedItem.ToString(),
                 Age = age_picker.SelectedItem.ToString(),
-                RFID = rfid_entry.Text
+                RFID = rfid_entry.Text,
+                Image = image
             };
 
             SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
@@ -89,6 +93,16 @@ namespace PetFriend.Views
             PetPic.Source = ImageSource.FromStream(() =>
             {
                 var stream = selectedImageFile.GetStream();
+                var buffer = new byte[16 * 1024];
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    int read;
+                    while ((read = stream.Read(buffer, 0, buffer.Length)) > 0)
+                    {
+                        ms.Write(buffer, 0, read);
+                    }
+                    image = ms.ToArray();
+                }
                 //selectedImageFile.Dispose();
                 return stream;
             });

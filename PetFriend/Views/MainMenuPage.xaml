@@ -59,7 +59,7 @@
                       </DataTemplate>
                    </ListView.ItemTemplate>
                 </ListView>
-            </StackLayout>
+                </StackLayout>
         </ContentPage.Content>
     </ContentPage>
 
@@ -109,27 +109,6 @@
                 <Label Text="Date" x:Name="dateLabel"/>
                 <DatePicker x:Name="datePicker" WidthRequest="100" Margin="75,0,0,0"/>
                     <TimePicker x:Name="timePicker" />
-
-
-
-            <ScrollView Orientation="Horizontal" HeightRequest="30" HorizontalOptions="Fill">
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="hello"></Label>
-                        <Label Text="test"></Label>
-                        <Label Text="hello"></Label>
-                        <Label Text="test"></Label>
-                        <Label Text="hello"></Label>
-                        <Label Text="test"></Label>
-                        <Label Text="hello"></Label>
-                        <Label Text="test"></Label>
-                        <Label Text="hello"></Label>
-                        <Label Text="test"></Label>
-                        <Label Text="hello"></Label>
-                        <Label Text="test"></Label>
-                        <Label Text="hello"></Label>
-                        <Label Text="test"></Label>
-                    </StackLayout>
-            </ScrollView>
 
 
                 
