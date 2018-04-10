@@ -177,6 +177,149 @@ namespace PetFriend.Views
             await Navigation.PushAsync(new HealthViewPage(e.Item.ToString()));
         }
 
+        void removeReminder(object sender, EventArgs e)
+        {
+            var mi = ((MenuItem)sender);
+
+            string curDir = null;
+
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                curDir = "";//ADD 
+            }
+            else
+            {
+                curDir = "/storage/sdcard0/Android/data/petFriend/";
+
+            }
+
+            if (curDir == null) return;// if device isn't iOS or android, should never happen
+
+            string[] Reminders = File.ReadAllLines(curDir + "Reminders.dat");//Reads data from Reminders list file
+
+            File.Delete(curDir + "Reminders.dat");
+
+            //TODO: ADD CHECK FOR DUPLICATE FILE NAMES==========================================================================================================================================
+            StreamWriter appender = File.AppendText(curDir + "Reminders.dat");
+
+            string[] RemindersNew = new string[Reminders.Length - 1];
+
+            int j = 0;
+            for(int i=0; i<Reminders.Length; i++)
+            {
+                if (Reminders[i] != (string)mi.CommandParameter)
+                {
+                    RemindersNew[j] = (string)mi.CommandParameter;
+                    appender.Write(Reminders[i] + "\n");
+                    j++;
+                }
+            }
+
+
+            Reminders_List.ItemsSource = RemindersNew; //displays the data read in the listview
+
+            appender.Flush();
+            appender.Close();
+
+            File.Delete(curDir + (string)mi.CommandParameter + ".dat");
+
+        }
+
+        void removeHealth(object sender, EventArgs e)
+        {
+            var mi = ((MenuItem)sender);
+
+            string curDir = null;
+
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                curDir = "";//ADD 
+            }
+            else
+            {
+                curDir = "/storage/sdcard0/Android/data/petFriend/";
+
+            }
+
+            if (curDir == null) return;// if device isn't iOS or android, should never happen
+
+            string[] Records = File.ReadAllLines(curDir + "Records.dat");//Reads data from Reminders list file
+
+            File.Delete(curDir + "Records.dat");
+
+            //TODO: ADD CHECK FOR DUPLICATE FILE NAMES==========================================================================================================================================
+            StreamWriter appender = File.AppendText(curDir + "Records.dat");
+
+            string[] HealthNew = new string[Records.Length - 1];
+
+            int j = 0;
+            for (int i = 0; i < Records.Length; i++)
+            {
+                if (Records[i] != (string)mi.CommandParameter)
+                {
+                    HealthNew[j] = (string)mi.CommandParameter;
+                    appender.Write(Records[i] + "\n");
+                    j++;
+                }
+            }
+
+            Health_List.ItemsSource = HealthNew; //displays the data read in the listview
+
+            appender.Flush();
+            appender.Close();
+
+            File.Delete(curDir + (string)mi.CommandParameter + ".dat");
+
+        }
+
+        void removeProfile(object sender, EventArgs e)
+        {
+            var mi = ((MenuItem)sender);
+
+            string curDir = null;
+
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                curDir = "";//ADD 
+            }
+            else
+            {
+                curDir = "/storage/sdcard0/Android/data/petFriend/";
+
+            }
+
+            if (curDir == null) return;// if device isn't iOS or android, should never happen
+
+            string[] Profiles = File.ReadAllLines(curDir + "Profiles.dat");//Reads data from Reminders list file
+
+            File.Delete(curDir + "Profiles.dat");
+
+            //TODO: ADD CHECK FOR DUPLICATE FILE NAMES==========================================================================================================================================
+            StreamWriter appender = File.AppendText(curDir + "Profiles.dat");
+
+            string[] ProfilesNew = new string[Profiles.Length - 1];
+
+            int j = 0;
+            for (int i = 0; i < Profiles.Length; i++)
+            {
+                if (Profiles[i] != (string)mi.CommandParameter)
+                {
+                    ProfilesNew[j] = (string)mi.CommandParameter;
+                    appender.Write(Profiles[i] + "\n");
+                    j++;
+                }
+            }
+
+
+            Pet_List.ItemsSource = ProfilesNew; //displays the data read in the listview
+
+            appender.Flush();
+            appender.Close();
+
+            File.Delete(curDir + (string)mi.CommandParameter + ".dat");
+
+        }
+
         async void AddPet(object ender, EventArgs e)
         {
             await Navigation.PushAsync(new AddPetPage());

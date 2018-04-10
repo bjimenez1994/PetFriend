@@ -16,7 +16,7 @@
                         <DataTemplate>
                             <ViewCell>
                                 <ViewCell.ContextActions>
-                                    <MenuItem  CommandParameter="{Binding .}" 
+                                    <MenuItem Clicked="removeReminder" CommandParameter="{Binding .}" 
                                     Text="Delete" IsDestructive="True" />
                                 </ViewCell.ContextActions>
                                 <StackLayout Orientation="Horizontal">
@@ -47,7 +47,7 @@
                         <DataTemplate>
                             <ViewCell>
                                 <ViewCell.ContextActions>
-                                    <MenuItem  CommandParameter="{Binding .}" 
+                                    <MenuItem Clicked="removeHealth" CommandParameter="{Binding .}" 
                                     Text="Delete" IsDestructive="True" />
                                 </ViewCell.ContextActions>
                                 <StackLayout Orientation="Horizontal">
@@ -81,7 +81,7 @@
                         <DataTemplate>
                             <ViewCell>
                                 <ViewCell.ContextActions>
-                                    <MenuItem  CommandParameter="{Binding .}" 
+                                    <MenuItem Clicked="removeProfile" CommandParameter="{Binding .}" 
                                     Text="Delete" IsDestructive="True" />
                                 </ViewCell.ContextActions>
                                 <StackLayout Orientation="Horizontal">
