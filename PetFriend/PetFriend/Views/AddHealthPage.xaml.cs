@@ -38,7 +38,7 @@ namespace PetFriend.Views
 
             if (Device.RuntimePlatform == Device.iOS)
             {
-                curDir = "";//ADD 
+                curDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             }
             else
             {
