@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PetFriend.Views.PetViewPage">
 	<ContentPage.Content>
 
+            <ScrollView>
 
         <StackLayout Margin="20,20,20,20">
             <Label Text="Pet" HorizontalTextAlignment="Center" Margin="0,0,0,20"
@@ -9,27 +10,28 @@
 
             
             <Label Text="Name" FontAttributes="Bold" FontSize="20"/>
-            <Label x:Name="name_entry" HeightRequest="35" Margin="0,0,0,10"/>
+            <Entry x:Name="name_entry" HeightRequest="35" Margin="0,0,0,10"/>
 
             <Label Text="Type of Pet" FontAttributes="Bold" FontSize="20"/>
-            <Label x:Name="type_picker" Margin="0,0,200,10"/>
+            <Picker x:Name="type_picker" Margin="0,0,200,10"/>
 
-            <Label Text="Gender" BackgroundColor="#38ada9" Margin="0,0,220,0" FontAttributes="Bold" FontSize="20"/>
-            <Label x:Name="gender_picker" Margin="0,0,0,10" />
+            <Label Text="Gender" Margin="0,0,220,0" FontAttributes="Bold" FontSize="20"/>
+            <Picker x:Name="gender_picker" Margin="0,0,0,10" />
 
             <Label Text="Age" FontAttributes="Bold" FontSize="20"/>
-            <Label x:Name="age_picker" Margin="0,0,250,10" />
+            <Picker x:Name="age_picker" Margin="0,0,250,10" />
 
             <Label Text="RFID" FontAttributes="Bold" FontSize="20"/>
-            <Label x:Name="rfid_entry" HeightRequest="35" Margin="0,0,180,10" />
+            <Entry x:Name="rfid_entry" HeightRequest="35" Margin="0,0,180,10" />
+
+            <Button Text="Save" Clicked="DoneEdit"  TextColor="#38ada9" BackgroundColor="#f1f2f6" Margin="20,20"/>
 
             <Label Text="Image" FontAttributes="Bold" FontSize="20"/>
             <Image x:Name="image_entry" HeightRequest="80" Margin="0,0,180,10" />
 
-            <Button Text="Profile Picture"  TextColor="#38ada9" BackgroundColor="#f1f2f6" Margin="20,20"/>
 
             
         </StackLayout>
-        
+        </ScrollView>
 	</ContentPage.Content>
 </ContentPage>

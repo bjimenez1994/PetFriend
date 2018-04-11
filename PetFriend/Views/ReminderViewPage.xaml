@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PetFriend.Views.ReminderViewPage">
 	<ContentPage.Content>
+            <ScrollView>
 
          <StackLayout Margin="20,20,20,20">
             <Label Text="Reminder" HorizontalTextAlignment="Center" Margin="0,0,0,20"
@@ -8,16 +9,28 @@
 
             
             <Label Text="Title" FontAttributes="Bold" FontSize="20"/>
-            <Label x:Name="name_entry" HeightRequest="35" Margin="0,0,0,10"/>
+            <Entry x:Name="name_entry" HeightRequest="35" Margin="0,0,0,10"/>
 
             <Label Text="Description" FontAttributes="Bold" FontSize="20"/>
-            <Label x:Name="description_entry" Margin="0,0,100,10" />
+            <Entry x:Name="description_entry" Margin="0,0,100,10" />
 
             <Label Text="Priority" FontAttributes="Bold" FontSize="20"/>
-            <Label x:Name="priority_picker" Margin="0,0,250,10"/>
+            <Picker x:Name="priority_picker" Margin="0,0,250,10"/>
 
+            <StackLayout BackgroundColor="#38ada9" Padding="1">    
+                <StackLayout Padding="2"  Orientation="Horizontal" BackgroundColor="White">    
+                    <Label Text="Date" BackgroundColor="White" HeightRequest="30" VerticalTextAlignment="Center" Margin="4,0,4,0"/>
+                    <DatePicker x:Name="datePicker" WidthRequest="100" Margin="75,0,0,0"/>
+                    <TimePicker x:Name="timePicker" />
+                </StackLayout>
+            </StackLayout>
+
+            <Label Text="Status" FontAttributes="Bold" FontSize="20"/>
+            <Picker x:Name="status_picker" Margin="0,0,250,10"/>
+
+            <Button Text="Save" Clicked="DoneEdit"  TextColor="#38ada9" BackgroundColor="#f1f2f6" Margin="20,20"/>
             
         </StackLayout>
-        
+        </ScrollView>
 	</ContentPage.Content>
 </ContentPage>

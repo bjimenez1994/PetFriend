@@ -16,7 +16,7 @@ namespace PetFriend.Views
             Init();
         }
 
-        string temp;
+        int tempid;
 
         void Init()
         {
@@ -25,15 +25,14 @@ namespace PetFriend.Views
             /* getting data from selected pet */
 
             SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
-            conn.CreateTable<LocalData>();
             var check = from s in conn.Table<LocalData>()
                         select s;
-            temp = check.Last().tempname;
+            tempid = check.Last().tempname;
             conn.DropTable<LocalData>();
-            conn.CreateTable<HealthData>();
 
-            var output = conn.Query<HealthData>("select * from HealthData where Date=?", temp);
+            var output = conn.Query<HealthData>("select * from HealthData where id=?", tempid);
 
+            tempid = output.Last().id;
             vetVisit_entry.Text = output.Last().vetVisited;
             type_entry.Text = output.Last().TypeVisit;
             date_entry.Text = output.Last().Date;
@@ -43,6 +42,31 @@ namespace PetFriend.Views
 
             conn.Close();
 
+        }
+
+        async void DoneEdit(object ender, EventArgs e)
+        {
+            SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
+            conn.Query<HealthData>("select * from HealthData where id=?", tempid);
+
+            HealthData healthdata = new HealthData()
+            {
+                id = tempid,
+                vetVisited = vetVisit_entry.Text
+                /*TypeVisit = type_entry.Text,
+                Date = date_entry.Text,
+                Weight = weight_entry.Text,
+                Vaccinations = vaccinations_entry.Text,
+                vetComments = comments_entry.Text*/
+            };
+
+            conn.Update(healthdata);
+            conn.Close();
+
+
+            await DisplayAlert("Success", "Vet information saved", "Ok");
+
+            await Navigation.PopToRootAsync();
         }
     }
 }

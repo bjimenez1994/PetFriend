@@ -3,13 +3,15 @@ using PetFriend.Views;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using Plugin.LocalNotifications;
+using SQLite;
+using PetFriend.Models;
 
 namespace PetFriend
 {
     public partial class App : Application
     {
         
-        bool run = true;
+
         public static string DatabaseLocation = string.Empty;
         public App()
         {
@@ -39,19 +41,12 @@ namespace PetFriend
 
         protected override void OnSleep()
         {
-            while(run == true)
-            {
-                var task = Task.Delay(60000);
-                task.Wait();
-                checkReminders();
-            }
-
-
+            
         }
 
         protected override void OnResume()
         {
-            
+
         }
 
         void checkReminders()
@@ -59,5 +54,9 @@ namespace PetFriend
             CrossLocalNotifications.Current.Show("title", "test");
             return;
         }
+
+
+
+
     }
 }

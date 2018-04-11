@@ -29,6 +29,7 @@ namespace PetFriend.Views
             SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
             conn.CreateTable<HealthData>();
             int rows = conn.Insert(healthdata);
+
             conn.Close();
 
             if (rows > 0)

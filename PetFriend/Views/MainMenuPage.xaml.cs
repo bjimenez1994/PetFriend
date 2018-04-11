@@ -6,6 +6,8 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Plugin.LocalNotifications;
+using System.IO;
+using ImageCircle.Forms.Plugin;
 
 
 using Xamarin.Forms;
@@ -57,14 +59,21 @@ namespace PetFriend.Views
             List<string> remtemp = new List<string>();
             List<string> proftemp = new List<string>();
             List<string> healthtemp = new List<string>();
+            List<int> hid = new List<int>();
+            List<int> rid = new List<int>();
+            List<int> pid = new List<int>();
 
             SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
             conn.CreateTable<PetProfile>();
-            proftemp = conn.Table<PetProfile>().ToList().Select(p => p.Name).ToList();
             conn.CreateTable<Reminders>();
-            remtemp = conn.Table<Reminders>().ToList().Select(r => r.Title).ToList();
             conn.CreateTable<HealthData>();
+
+            proftemp = conn.Table<PetProfile>().ToList().Select(p => p.Name).ToList();
+            remtemp = conn.Table<Reminders>().ToList().Select(r => r.Title).ToList();
             healthtemp = conn.Table<HealthData>().ToList().Select(r => r.Date).ToList();
+            pid = conn.Table<PetProfile>().ToList().Select(p => p.id).ToList();
+            rid = conn.Table<Reminders>().ToList().Select(r => r.id).ToList();
+            hid = conn.Table<HealthData>().ToList().Select(r => r.id).ToList();
             conn.Close();
 
 
@@ -76,7 +85,7 @@ namespace PetFriend.Views
                 };
                 for (i = 0; i < remtemp.Count(); i++)
                 {
-                    remm.Add(new Reminders { Title = remtemp[i] });
+                    remm.Add(new Reminders { Title = remtemp[i], id = rid[i] });
                 }
                 Reminders_List.ItemsSource = remm;
             }
@@ -88,7 +97,7 @@ namespace PetFriend.Views
                 };
                 for (i = 0; i < healthtemp.Count(); i++)
                 {
-                    heal.Add(new HealthData { Date = healthtemp[i] });
+                    heal.Add(new HealthData { Date = healthtemp[i], id = hid[i] });
                 }
                 Health_List.ItemsSource = heal;
             }
@@ -100,44 +109,9 @@ namespace PetFriend.Views
                 };
                 for (i = 0; i < proftemp.Count(); i++)
                 {
-                    prof.Add(new PetProfile { Name = proftemp[i] });
+                    prof.Add(new PetProfile { Name = proftemp[i], id = pid[i] });
                 }
                 Pet_List.ItemsSource = prof;
-            }
-        
-
-
-
-            if(Pet_List.ItemsSource == null)
-            {
-                Pet_List.IsVisible = false;
-                pet_label.IsVisible = true;
-            }
-            else
-            {
-                Pet_List.IsVisible = true;
-                pet_label.IsVisible = false;
-            }
-
-            if(Reminders_List.ItemsSource == null)
-            {   Reminders_List.IsVisible = false;
-                reminder_label.IsVisible = true;
-            }
-            else
-            {
-                Reminders_List.IsVisible = true;
-                reminder_label.IsVisible = false;
-            }
-
-            if (Health_List.ItemsSource == null)
-            {
-                Health_List.IsVisible = false;
-                health_label.IsVisible = true;
-            }
-            else
-            {
-                Health_List.IsVisible = true;
-                health_label.IsVisible = false;
             }
 
         }
@@ -145,18 +119,23 @@ namespace PetFriend.Views
         async void PetSelection(object sender, ItemTappedEventArgs e)
         {
             var prof = e.Item as PetProfile;
-            await DisplayAlert("Pet selected", "Pet: " + prof.Name, "OK");
+            //await DisplayAlert("Pet selected", "Pet: " + prof.Name, "OK");
 
             if (e.Item == null)
             {
                 return; //ItemSelected is called on deselection, which results in SelectedItem being set to null
             }
-            string temp = prof.Name;
+            int temp = prof.id;
+            SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
+            var output = conn.Query<PetProfile>("select * from PetProfile where id=?", temp);
+            profilePic.Source = ImageSource.FromStream(() => new MemoryStream(output.Last().Image));
+
+
+            //string temp = prof.Name;
             LocalData localdata = new LocalData()
             {
                 tempname = temp 
             };
-            SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
             conn.CreateTable<LocalData>();
             conn.Insert(localdata);
             conn.Close();
@@ -174,7 +153,7 @@ namespace PetFriend.Views
             {
                 return; //ItemSelected is called on deselection, which results in SelectedItem being set to null
             }
-            string temp = remm.Title;
+            int temp = remm.id;
 
 
 
@@ -201,7 +180,7 @@ namespace PetFriend.Views
             {
                 return; //ItemSelected is called on deselection, which results in SelectedItem being set to null
             }
-            string temp = heal.Date;
+            int temp = heal.id;
             LocalData localdata = new LocalData()
             {
                 tempname = temp
@@ -214,30 +193,107 @@ namespace PetFriend.Views
             await Navigation.PushAsync(new HealthViewPage());
         }
 
-        async void AddPet(object ender, EventArgs e)
+        async void AddPet(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new AddPetPage());
         }
 
-        async void AddHealthRecord(object ender, EventArgs e)
+        async void AddHealthRecord(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new AddHealthPage());
         }
 
-        async void AddReminder(object ender, EventArgs e)
+        async void AddReminder(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new AddReminderPage());
         }
 
-        void DateClicked(object ender, EventArgs e)
+        void DateClicked(object sender, EventArgs e)
         {
             var ben = DateTime.Now;
 
             startDate = datePicker.Date + timePicker.Time;
             dateLabel.Text = startDate.ToString();
-            CrossLocalNotifications.Current.Show("title", "test", 100, DateTime.Now.AddSeconds(10));
+            CrossLocalNotifications.Current.Show("title", "test");
+
+
         }
 
+        void DeletePet(object sender, EventArgs e)
+        {
+            var mi = ((MenuItem)sender);
+            int i = Int32.Parse(mi.CommandParameter.ToString());
+            SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
+            conn.Delete<PetProfile>(i);
 
+            OnAppearing();
+        }
+
+        void DeleteReminder(object sender, EventArgs e)
+        {
+            
+            var mi = ((MenuItem)sender);
+            int i = Int32.Parse(mi.CommandParameter.ToString());
+            SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
+            conn.Delete<Reminders>(i);
+           
+            OnAppearing();
+        }
+
+        void DeleteHealth(object sender, EventArgs e)
+        {
+            var mi = ((MenuItem)sender);
+            int i = Int32.Parse(mi.CommandParameter.ToString());
+            SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
+            conn.Delete<HealthData>(i);
+            OnAppearing();
+        }
+
+        void test()
+        {
+            int i, result;
+            List<string> remtemp = new List<string>();
+            List<DateTime> temp = new List<DateTime>();
+            List<int> tempid = new List<int>();
+
+            DateTime now;
+            now = DateTime.Now;
+
+            SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
+            remtemp = conn.Table<Reminders>().ToList().Select(r => r.Title).ToList();
+            temp = conn.Table<Reminders>().ToList().Select(n => n.Date).ToList();
+            tempid = conn.Table<Reminders>().ToList().Select(n => n.id).ToList();
+            if (tempid != null)
+            {
+                for (i = 0; i < remtemp.Count(); i++)
+                {
+                    result = DateTime.Compare(now, temp[i]);
+                    if (result < 0)
+                    {
+
+                    }
+                    else
+                    {
+                        CrossLocalNotifications.Current.Show("Reminder", "It's time to " + remtemp[i] + ".");
+                        var output = conn.Query<Reminders>("select * from Reminders where id=?", tempid[i+1]);
+
+                        Reminders reminders = new Reminders()
+                        {
+                            id = output.Last().id,
+                            Title = output.Last().Title,
+                            Description = output.Last().Description,
+                            Priority = output.Last().Priority,
+                            Date = output.Last().Date.Date + output.Last().Date.TimeOfDay,
+                            isActivated = false
+                        };
+
+                        conn.Update(reminders);
+                    }
+
+                }
+            }
+            conn.Close();
+
+        }
     }
 }

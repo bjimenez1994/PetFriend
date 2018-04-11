@@ -145,6 +145,12 @@
     <Reference Include="Plugin.LocalNotifications">
       <HintPath>..\packages\Xam.Plugins.Notifier.2.1.0\lib\MonoAndroid10\Plugin.LocalNotifications.dll</HintPath>
     </Reference>
+    <Reference Include="ImageCircle.Forms.Plugin.Abstractions">
+      <HintPath>..\packages\Xam.Plugins.Forms.ImageCircle.2.0.2\lib\MonoAndroid10\ImageCircle.Forms.Plugin.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageCircle.Forms.Plugin.Android">
+      <HintPath>..\packages\Xam.Plugins.Forms.ImageCircle.2.0.2\lib\MonoAndroid10\ImageCircle.Forms.Plugin.Android.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PetFriend\PetFriend.csproj">

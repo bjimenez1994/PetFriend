@@ -18,13 +18,14 @@ namespace PetFriend.Views
             Init();
         }
 
-        string temp; //global declaration
+        byte[] image;
+        int tempid;
 
         void Init()
         {
             /* filling out the pickers */
-            //string age;
-            /*
+            string age;
+
             for (int i = 0; i < 100; i++)
             {
                 age = i.ToString();
@@ -39,48 +40,47 @@ namespace PetFriend.Views
 
             gender_picker.Items.Add("Male");
             gender_picker.Items.Add("Female");
-            */
-            /**/
+
 
             /* getting data from selected pet */
 
             SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
-            conn.CreateTable<LocalData>();
             var check = from s in conn.Table<LocalData>()
                         select s;
-            temp = check.Last().tempname;
+            tempid = check.Last().tempname;
             conn.DropTable<LocalData>();
-            conn.CreateTable<Reminders>();
 
-            var output = conn.Query<PetProfile>("select * from PetProfile where Name=?", temp);
+            var output = conn.Query<PetProfile>("select * from PetProfile where id=?", tempid);
 
+            tempid = output.Last().id;
             name_entry.Text = output.Last().Name;
-            //gender_picker.SelectedItem = output.Last().Gender;
-            //type_picker.SelectedItem = output.Last().Type;
-            //age_picker.SelectedItem = output.Last().Age;
-            gender_picker.Text = output.Last().Gender;
-            type_picker.Text = output.Last().Type;
-            age_picker.Text = output.Last().Age;
+            gender_picker.SelectedItem = output.Last().Gender;
+            type_picker.SelectedItem = output.Last().Type;
+            age_picker.SelectedItem = output.Last().Age;
             rfid_entry.Text = output.Last().RFID;
             image_entry.Source = ImageSource.FromStream(() => new MemoryStream(output.Last().Image));
+            image = output.Last().Image;
 
 
             conn.Close();
-
         }
-        /*
+
         async void DoneEdit(object ender, EventArgs e)
         {
             SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
-            conn.Query<PetProfile>("select * from PetProfile where Name=?", temp);
+            conn.Query<PetProfile>("select * from PetProfile where id=?", tempid);
+
             PetProfile petprofile = new PetProfile()
             {
+                id = tempid, 
                 Name = name_entry.Text,
                 Gender = gender_picker.SelectedItem.ToString(),
                 Type = type_picker.SelectedItem.ToString(),
                 Age = age_picker.SelectedItem.ToString(),
-                RFID = rfid_entry.Text
+                RFID = rfid_entry.Text,
+                Image = image
             };
+
             conn.Update(petprofile);
             conn.Close();
 
@@ -89,7 +89,7 @@ namespace PetFriend.Views
 
             await Navigation.PopToRootAsync();
         }
-*/
+
 
     }
 }

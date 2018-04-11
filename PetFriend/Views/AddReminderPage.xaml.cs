@@ -33,7 +33,8 @@ namespace PetFriend.Views
                 Title = reminder_entry.Text,
                 Description = description_entry.Text,
                 Priority = priority_picker.SelectedItem.ToString(),
-                Date = datePicker.Date + timePicker.Time
+                Date = datePicker.Date + timePicker.Time,
+                isActivated = true
             };
 
             SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);

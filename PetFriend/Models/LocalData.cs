@@ -3,6 +3,6 @@ namespace PetFriend.Models
 {
     public class LocalData
     {
-        public string tempname { get; set; }
+        public int tempname { get; set; }
     }
 }

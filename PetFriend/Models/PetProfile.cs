@@ -5,7 +5,8 @@ namespace PetFriend.Models
 {
     public class PetProfile
     {
-        //[SQLite.PrimaryKey, SQLite.AutoIncrement]
+        [PrimaryKey, AutoIncrement]
+        public int id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public string Gender { get; set; }

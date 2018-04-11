@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PetFriend.Views.HealthViewPage">
 	<ContentPage.Content>
+            <ScrollView>
 
         <StackLayout Margin="20,20,20,20">
             <Label Text="Health Record" HorizontalTextAlignment="Center" Margin="0,0,0,20"
@@ -8,25 +9,27 @@
                    
 
             <Label Text="Vet Visited" FontAttributes="Bold" FontSize="20"/>
-            <Label x:Name="vetVisit_entry" HeightRequest="35" Margin="0,0,0,10"/>
+            <Entry x:Name="vetVisit_entry" HeightRequest="35" Margin="0,0,0,10"/>
 
             <Label Text="Type of visit" FontAttributes="Bold" FontSize="20"/>
-            <Label x:Name="type_entry" Margin="0,0,200,10"/>
+            <Entry x:Name="type_entry" Margin="0,0,200,10"/>
 
             <Label Text="Date" FontAttributes="Bold" FontSize="20"/>
-            <Label x:Name="date_entry" Margin="0,0,200,10"/>
+            <Entry x:Name="date_entry" Margin="0,0,200,10"/>
 
             <Label Text="Weight" FontAttributes="Bold" FontSize="20"/>
-            <Label x:Name="weight_entry" Margin="0,0,200,10"/>
+            <Entry x:Name="weight_entry" Margin="0,0,200,10"/>
 
             <Label Text="Vaccinations" FontAttributes="Bold" FontSize="20"/>
-            <Label x:Name="vaccinations_entry" HeightRequest="35" Margin="0,0,200,10"/>
-
+            <Entry x:Name="vaccinations_entry" HeightRequest="35" Margin="0,0,200,10"/>
+            
             <Label Text="Vet comments" FontAttributes="Bold" FontSize="20"/>
-            <Label x:Name="comments_entry" HeightRequest="35" Margin="0,0,0,10"/>
+            <Entry x:Name="comments_entry" HeightRequest="35" Margin="0,0,0,10"/>
+
+            <Button Text="Save" Clicked="DoneEdit"  TextColor="#38ada9" BackgroundColor="#f1f2f6" Margin="20,20"/>
 
             
         </StackLayout>
-        
+        </ScrollView>
 	</ContentPage.Content>
 </ContentPage>

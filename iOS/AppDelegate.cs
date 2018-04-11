@@ -7,6 +7,7 @@ using UserNotificationsUI;
 
 using Foundation;
 using UIKit;
+using ImageCircle.Forms.Plugin.iOS;
 
 namespace PetFriend.iOS
 {
@@ -16,6 +17,8 @@ namespace PetFriend.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            ImageCircleRenderer.Init();
+
 
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
             {
@@ -43,6 +46,8 @@ namespace PetFriend.iOS
             string fullPath = Path.Combine(folderPath, dbName);
 
             LoadApplication(new App(fullPath));
+            
+
 
             return base.FinishedLaunching(app, options);
         }

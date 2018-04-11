@@ -18,48 +18,65 @@ namespace PetFriend.Views
             Init();
         }
 
-        string temp;
+        int tempid;
 
         void Init()
         {
-            /* filling out the pickers */
-            //string age;
-            /*
-            for (int i = 0; i < 100; i++)
-            {
-                age = i.ToString();
-                age_picker.Items.Add(age);
-            }
+            priority_picker.Items.Add("Low");
+            priority_picker.Items.Add("Normal");
+            priority_picker.Items.Add("Important");
+            priority_picker.Items.Add("Critical");
+            status_picker.Items.Add("True");
+            status_picker.Items.Add("False");
 
-            type_picker.Items.Add("Dog");
-            type_picker.Items.Add("Cat");
-            type_picker.Items.Add("Horse");
-            type_picker.Items.Add("Bird");
-            type_picker.Items.Add("Reptile");
-
-            gender_picker.Items.Add("Male");
-            gender_picker.Items.Add("Female");
-            */
-            /**/
-
-            /* getting data from selected pet */
+            /* getting data from selected reminder */
 
             SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
-            conn.CreateTable<LocalData>();
             var check = from s in conn.Table<LocalData>()
                         select s;
-            temp = check.Last().tempname;
+            tempid = check.Last().tempname;
             conn.DropTable<LocalData>();
-            conn.CreateTable<PetProfile>();
 
-            var output = conn.Query<Reminders>("select * from Reminders where Title=?", temp);
+            var output = conn.Query<Reminders>("select * from Reminders where id=?", tempid);
 
+            tempid = output.Last().id;
             name_entry.Text = output.Last().Title;
             description_entry.Text = output.Last().Description;
-            priority_picker.Text = output.Last().Priority;
+            priority_picker.SelectedItem = output.Last().Priority;
+            status_picker.SelectedItem = output.Last().isActivated.ToString();
+            datePicker.Date = output.Last().Date.Date;
+            timePicker.Time = output.Last().Date.TimeOfDay;
+
 
             conn.Close();
 
+
+        }
+
+        async void DoneEdit(object ender, EventArgs e)
+        {
+            string tobool = status_picker.SelectedItem.ToString();
+            bool val = Boolean.Parse(tobool);
+            SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
+            conn.Query<Reminders>("select * from Reminders where id=?", tempid);
+
+            Reminders reminders = new Reminders()
+            {
+                id = tempid,
+                Title = name_entry.Text,
+                Description = description_entry.Text,
+                Priority = priority_picker.SelectedItem.ToString(),
+                Date = datePicker.Date + timePicker.Time,
+                isActivated = val
+            };
+
+            conn.Update(reminders);
+            conn.Close();
+
+
+            await DisplayAlert("Success", "Pet reminder saved", "Ok");
+
+            await Navigation.PopToRootAsync();
         }
 
     }

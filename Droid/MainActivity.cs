@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -8,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using System.IO;
+using ImageCircle.Forms.Plugin.Droid;
 
 namespace PetFriend.Droid
 {
@@ -22,6 +22,7 @@ namespace PetFriend.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            ImageCircleRenderer.Init();
 
             string dbName = "PetFriend_db.sqlite";
             string folderPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
