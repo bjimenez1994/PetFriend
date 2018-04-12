@@ -74,7 +74,6 @@ namespace PetFriend.Views
             pid = conn.Table<PetProfile>().ToList().Select(p => p.id).ToList();
             rid = conn.Table<Reminders>().ToList().Select(r => r.id).ToList();
             hid = conn.Table<HealthData>().ToList().Select(r => r.id).ToList();
-            conn.Close();
 
 
             if (remtemp != null)
@@ -109,10 +108,17 @@ namespace PetFriend.Views
                 };
                 for (i = 0; i < proftemp.Count(); i++)
                 {
+                    if (i == 0)
+                    {
+                        var temp = conn.Query<PetProfile>("select * from PetProfile where id=?", pid[i]);
+                        profilePic.Source = ImageSource.FromStream(() => new MemoryStream(temp.Last().Image));
+                        profileLabel.Text = "The coolest " + temp.Last().Type + " there ever was!";
+                    }
                     prof.Add(new PetProfile { Name = proftemp[i], id = pid[i] });
                 }
                 Pet_List.ItemsSource = prof;
             }
+            conn.Close();
 
         }
 
@@ -125,12 +131,16 @@ namespace PetFriend.Views
             {
                 return; //ItemSelected is called on deselection, which results in SelectedItem being set to null
             }
+
             int temp = prof.id;
             SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
             var output = conn.Query<PetProfile>("select * from PetProfile where id=?", temp);
             profilePic.Source = ImageSource.FromStream(() => new MemoryStream(output.Last().Image));
+            profileLabel.Text = "The coolest " + output.Last().Type + " there ever was!";
 
+            ((ListView)sender).SelectedItem = null; // de-select the row
 
+            /*
             //string temp = prof.Name;
             LocalData localdata = new LocalData()
             {
@@ -140,7 +150,7 @@ namespace PetFriend.Views
             conn.Insert(localdata);
             conn.Close();
 
-            await Navigation.PushAsync(new PetViewPage());
+            await Navigation.PushAsync(new PetViewPage());*/
         }
 
         private async void ReminderSelection(object sender, ItemTappedEventArgs e)
