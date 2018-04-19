@@ -113,6 +113,7 @@ namespace PetFriend.Views
                         var temp = conn.Query<PetProfile>("select * from PetProfile where id=?", pid[i]);
                         profilePic.Source = ImageSource.FromStream(() => new MemoryStream(temp.Last().Image));
                         profileLabel.Text = "The coolest " + temp.Last().Type + " there ever was!";
+                        nameLabel.Text = temp.Last().Name;
                     }
                     prof.Add(new PetProfile { Name = proftemp[i], id = pid[i] });
                 }
@@ -137,20 +138,10 @@ namespace PetFriend.Views
             var output = conn.Query<PetProfile>("select * from PetProfile where id=?", temp);
             profilePic.Source = ImageSource.FromStream(() => new MemoryStream(output.Last().Image));
             profileLabel.Text = "The coolest " + output.Last().Type + " there ever was!";
+            nameLabel.Text = output.Last().Name;
 
             ((ListView)sender).SelectedItem = null; // de-select the row
 
-            /*
-            //string temp = prof.Name;
-            LocalData localdata = new LocalData()
-            {
-                tempname = temp 
-            };
-            conn.CreateTable<LocalData>();
-            conn.Insert(localdata);
-            conn.Close();
-
-            await Navigation.PushAsync(new PetViewPage());*/
         }
 
         private async void ReminderSelection(object sender, ItemTappedEventArgs e)
@@ -257,6 +248,25 @@ namespace PetFriend.Views
             SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
             conn.Delete<HealthData>(i);
             OnAppearing();
+        }
+
+        async void EditPet(object sender, EventArgs e)
+        {
+
+            var mi = ((MenuItem)sender);
+            int i = Int32.Parse(mi.CommandParameter.ToString());
+            SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
+
+            LocalData localdata = new LocalData()
+            {
+                tempname = i 
+            };
+            conn.CreateTable<LocalData>();
+            conn.Insert(localdata);
+            conn.Close();
+
+            await Navigation.PushAsync(new PetViewPage());
+
         }
 
         void test()

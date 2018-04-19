@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PetFriend.Views.AddPetPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PetFriend.Views.AddPetPage"
+        xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions">
+
 	<ContentPage.Content>
 
         <ScrollView>
-        <StackLayout Margin="20,20,20,20">
-            <Label Text="Add Pet" HorizontalTextAlignment="Center" Margin="0,0,0,20"
-                    BackgroundColor="#38ada9" FontSize="30" FontAttributes="Bold"/>
+            <StackLayout Margin="20,20,20,20">
+                <StackLayout Margin="0,0,0,10">
+            <controls:CircleImage x:Name="PetPic" HeightRequest="100" WidthRequest="100" HorizontalOptions="Center"
+                Aspect="AspectFill" Source="camera.png"/>
+                <controls:CircleImage.GestureRecognizers>
+                <TapGestureRecognizer
+                    Tapped="AddPicture"/>
+                </controls:CircleImage.GestureRecognizers>
+                </StackLayout>
 
             
             <Label Text="Name"/>
@@ -23,11 +31,8 @@
             <Label Text="RFID"/>
             <Entry x:Name="rfid_entry" HeightRequest="35" Margin="0,0,180,10"/>
 
-            <Button Text="Profile Picture" Clicked="AddPicture" TextColor="#38ada9" BackgroundColor="#f1f2f6" Margin="20,20"/>
-
             <Button Clicked="Done" Text="Done" BackgroundColor="#38ada9" TextColor="White" Margin="20,0"/>
 
-            <Image x:Name="PetPic" />
 
         </StackLayout>
         </ScrollView>

@@ -75,12 +75,8 @@ namespace PetFriend.Views
                 await DisplayAlert("Error", "This is not supported on your device", "Ok");
                 return;
             }
-            var mediaOptions = new PickMediaOptions()
-            {
-                PhotoSize = PhotoSize.Medium
-            };
 
-            var selectedImageFile = await CrossMedia.Current.PickPhotoAsync(mediaOptions);
+            var selectedImageFile = await CrossMedia.Current.PickPhotoAsync();
 
             if (selectedImageFile == null)
             {
@@ -88,26 +84,21 @@ namespace PetFriend.Views
                 return;
             }
 
+            PetPic.Source = ImageSource.FromStream(() => selectedImageFile.GetStream());
 
+            var stream = selectedImageFile.GetStream();
+            image = ConvertImage(stream);
 
-            PetPic.Source = ImageSource.FromStream(() =>
-            {
-                var stream = selectedImageFile.GetStream();
-                var buffer = new byte[16 * 1024];
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    int read;
-                    while ((read = stream.Read(buffer, 0, buffer.Length)) > 0)
-                    {
-                        ms.Write(buffer, 0, read);
-                    }
-                    image = ms.ToArray();
-                }
-                //selectedImageFile.Dispose();
-                return stream;
-            });
         }
 
+        public static byte[] ConvertImage(Stream input)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                input.CopyTo(ms);
+                return ms.ToArray();
+            }
+        }
 
     }
 }

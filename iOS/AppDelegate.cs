@@ -4,6 +4,7 @@ using System.Linq;
 using System.IO;
 using UserNotifications;
 using UserNotificationsUI;
+using Photos;
 
 using Foundation;
 using UIKit;
@@ -23,6 +24,7 @@ namespace PetFriend.iOS
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
             {
                 // Ask the user for permission to get notifications on iOS 10.0+
+
                 UNUserNotificationCenter.Current.RequestAuthorization(
                     UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound,
                     (approved, error) => { });

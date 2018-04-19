@@ -76,8 +76,9 @@
                 <StackLayout Margin="0,10,0,10" BackgroundColor="Black" >
                 <StackLayout Margin="0,1,0,1"  BackgroundColor="White">
                 <StackLayout Margin="0,10,0,10">
-
-                  <controls:CircleImage x:Name="profilePic" HeightRequest="80" WidthRequest="80"
+                            
+                            <Label x:Name="nameLabel" HorizontalOptions="Center" />
+                  <controls:CircleImage x:Name="profilePic" HeightRequest="100" WidthRequest="100"
                             Aspect="AspectFill" BorderColor="Black" BorderThickness="2" HorizontalOptions="Center"/>
                   <Label x:Name="profileLabel" Text="You have not created a pet profile. :(" HorizontalOptions="Center"/>
 
@@ -92,6 +93,8 @@
                          <ViewCell.ContextActions>
                             <MenuItem  CommandParameter="{Binding id}" 
                                     Text="Delete" IsDestructive="True" Clicked="DeletePet" />
+                            <MenuItem  CommandParameter="{Binding id}" 
+                                    Text="Edit" Clicked="EditPet" />
                          </ViewCell.ContextActions>
                             <StackLayout Orientation="Horizontal">
                                 <Label Text = "{Binding Name}" Margin="10,10,10,0" FontAttributes="Bold" FontSize="24"/>

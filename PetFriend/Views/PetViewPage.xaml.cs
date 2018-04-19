@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using SQLite;
 using System.Linq;
 using PetFriend.Models;
-using SQLite.Extensions;
 using System.IO;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 
 using Xamarin.Forms;
 
@@ -12,16 +13,17 @@ namespace PetFriend.Views
 {
     public partial class PetViewPage : ContentPage
     {
+        byte[] image;
         public PetViewPage()
         {
             InitializeComponent();
+            OnCall();
             Init();
         }
 
-        byte[] image;
         int tempid;
 
-        void Init()
+        void OnCall()
         {
             /* filling out the pickers */
             string age;
@@ -49,7 +51,12 @@ namespace PetFriend.Views
                         select s;
             tempid = check.Last().tempname;
             conn.DropTable<LocalData>();
+            conn.Close();
+        }
 
+        void Init()
+        {
+            SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
             var output = conn.Query<PetProfile>("select * from PetProfile where id=?", tempid);
 
             tempid = output.Last().id;
@@ -65,14 +72,48 @@ namespace PetFriend.Views
             conn.Close();
         }
 
-        async void DoneEdit(object ender, EventArgs e)
+        async void EditImage(object sender, EventArgs e)
+        {
+            await CrossMedia.Current.Initialize();
+
+            if (!CrossMedia.Current.IsPickPhotoSupported)
+            {
+                await DisplayAlert("Error", "This is not supported on your device", "Ok");
+                return;
+            }
+
+            var selectedImageFile = await CrossMedia.Current.PickPhotoAsync();
+
+            if (selectedImageFile == null)
+            {
+                //await DisplayAlert("Error", "There was an error when trying to get your image", "Ok");
+                return;
+            }
+
+
+            image_entry.Source = ImageSource.FromStream(() => selectedImageFile.GetStream());
+            var stream = selectedImageFile.GetStream();
+            image = ConvertImage(stream);
+
+        }
+
+        public static byte[] ConvertImage(Stream input)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                input.CopyTo(ms);
+                return ms.ToArray();
+            }
+        }
+
+        async void DoneEdit(object sender, EventArgs e)
         {
             SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
             conn.Query<PetProfile>("select * from PetProfile where id=?", tempid);
 
             PetProfile petprofile = new PetProfile()
             {
-                id = tempid, 
+                id = tempid,
                 Name = name_entry.Text,
                 Gender = gender_picker.SelectedItem.ToString(),
                 Type = type_picker.SelectedItem.ToString(),
@@ -89,7 +130,6 @@ namespace PetFriend.Views
 
             await Navigation.PopToRootAsync();
         }
-
 
     }
 }

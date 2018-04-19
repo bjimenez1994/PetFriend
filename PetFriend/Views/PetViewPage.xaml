@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PetFriend.Views.PetViewPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PetFriend.Views.PetViewPage"
+    xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions">
 	<ContentPage.Content>
 
             <ScrollView>
 
         <StackLayout Margin="20,20,20,20">
-            <Label Text="Pet" HorizontalTextAlignment="Center" Margin="0,0,0,20"
-                    BackgroundColor="#38ada9" FontSize="30" FontAttributes="Bold"/>
-
+                <StackLayout Margin="0,0,0,10">
+            <controls:CircleImage x:Name="image_entry" HeightRequest="100" WidthRequest="100" HorizontalOptions="Center"
+                Aspect="AspectFill"/>
+                  <controls:CircleImage.GestureRecognizers>
+                <TapGestureRecognizer
+                    Tapped="EditImage"/>
+                </controls:CircleImage.GestureRecognizers>
+                </StackLayout>
             
             <Label Text="Name" FontAttributes="Bold" FontSize="20"/>
             <Entry x:Name="name_entry" HeightRequest="35" Margin="0,0,0,10"/>
@@ -25,9 +31,6 @@
             <Entry x:Name="rfid_entry" HeightRequest="35" Margin="0,0,180,10" />
 
             <Button Text="Save" Clicked="DoneEdit"  TextColor="#38ada9" BackgroundColor="#f1f2f6" Margin="20,20"/>
-
-            <Label Text="Image" FontAttributes="Bold" FontSize="20"/>
-            <Image x:Name="image_entry" HeightRequest="80" Margin="0,0,180,10" />
 
 
             
