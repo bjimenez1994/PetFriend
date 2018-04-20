@@ -52,12 +52,12 @@ namespace PetFriend.Views
             HealthData healthdata = new HealthData()
             {
                 id = tempid,
-                vetVisited = vetVisit_entry.Text
-                /*TypeVisit = type_entry.Text,
+                vetVisited = vetVisit_entry.Text,
+                TypeVisit = type_entry.Text,
                 Date = date_entry.Text,
                 Weight = weight_entry.Text,
                 Vaccinations = vaccinations_entry.Text,
-                vetComments = comments_entry.Text*/
+                vetComments = comments_entry.Text
             };
 
             conn.Update(healthdata);

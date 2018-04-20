@@ -49,14 +49,5 @@ namespace PetFriend
 
         }
 
-        void checkReminders()
-        {
-            CrossLocalNotifications.Current.Show("title", "test");
-            return;
-        }
-
-
-
-
     }
 }
