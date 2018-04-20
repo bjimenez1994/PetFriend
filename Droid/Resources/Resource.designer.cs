@@ -2218,7 +2218,7 @@ namespace PetFriend.Droid
 			public const int avd_show_password_3 = 2130837786;
 			
 			// aapt resource value: 0x7f020056
-			public const int camera = 2130837590;
+			public const int cam = 2130837590;
 			
 			// aapt resource value: 0x7f020057
 			public const int design_bottom_navigation_item_background = 2130837591;
